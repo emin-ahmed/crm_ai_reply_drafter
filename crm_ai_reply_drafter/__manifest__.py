@@ -25,7 +25,13 @@ Built on Odoo 19 Community.
     'author': 'Emin Ahmed',
     'maintainer': 'Emin Ahmed',
     'website': 'https://github.com/emin-ahmed',
-    'images': ['static/description/demo.gif'],
+    'support': 'emin.talebahmed@gmail.com',
+    'development_status': 'Beta',
+    # First image is the App Store cover; replace demo.gif with your recording.
+    'images': [
+        'static/description/banner.png',
+        'static/description/demo.gif',
+    ],
     'depends': ['crm', 'mail'],
     # NOTE: provider SDKs (anthropic / openai / requests) are intentionally NOT
     # declared in external_dependencies. Only one provider is used per install,

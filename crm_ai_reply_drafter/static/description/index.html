@@ -1,21 +1,117 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan">AI Reply Drafter for CRM</h2>
-        <h3 class="oe_slogan">Draft personalized email replies to leads with an LLM — streamed live into the composer</h3>
+        <div class="oe_span12" style="text-align:center;">
+            <img src="banner.png" style="max-width:100%; height:auto;" alt="AI Reply Drafter for Odoo CRM"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
         <div class="oe_span12">
-            <p class="oe_mt32">
-                Adds a <b>Draft Reply</b> button to the lead/opportunity form. The
-                module reads the lead's data and its full chatter conversation,
-                sends them to a configurable LLM (Anthropic, OpenAI, or local
-                Ollama) with a configurable system prompt, and streams back a
-                personalized email draft that pre-fills Odoo's email composer.
-                The salesperson always reviews and sends — it never auto-sends.
+            <h2 class="oe_slogan">Reply to leads in one click — without leaving Odoo</h2>
+            <h3 class="oe_slogan" style="color:#714B67;">The salesperson always reviews and sends. It never auto-sends.</h3>
+            <p class="oe_mt32" style="font-size:16px;">
+                <b>AI Reply Drafter</b> adds a <b>Draft Reply</b> button to every lead and
+                opportunity. It reads the lead's data and its <b>full chatter conversation</b>,
+                sends them to the LLM you configure with your own system prompt, and
+                <b>streams back a personalized email draft</b> — live, token by token — into an
+                editable box. Tweak it, then send it straight to the customer or open the full
+                composer. Every generation is logged with token usage and a cost estimate.
             </p>
-            <ul>
-                <li>One provider per configuration; the API key lives in Settings, never in code.</li>
-                <li>Live, streamed draft via an OWL component.</li>
-                <li>Every generation logged with token counts and a cost estimate.</li>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12" style="text-align:center;">
+            <h2 class="oe_slogan">See it in action</h2>
+            <img src="demo.gif" style="max-width:100%; height:auto; border-radius:8px;" alt="Demo"/>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <h3 class="oe_slogan" style="text-align:left;">Grounded in the conversation</h3>
+            <p class="oe_mt32">
+                The draft is built from the lead's fields (contact, expected revenue, tags,
+                source) and the most recent chatter messages, in chronological order. Replies
+                reference what the customer actually asked — not a generic template.
+            </p>
+        </div>
+        <div class="oe_span6">
+            <h3 class="oe_slogan" style="text-align:left;">You stay in control</h3>
+            <p class="oe_mt32">
+                The draft streams into an editable field. Nothing is sent until you click
+                <b>Send</b>. Prefer the full composer? <b>Edit in composer…</b> opens Odoo's
+                email composer pre-filled, for attachments and extra recipients.
+            </p>
+        </div>
+    </div>
+    <div class="oe_row oe_spaced">
+        <div class="oe_span6">
+            <h3 class="oe_slogan" style="text-align:left;">Your provider, your key</h3>
+            <p class="oe_mt32">
+                Choose <b>Anthropic (Claude)</b>, <b>OpenAI</b>, or local <b>Ollama</b> — and any
+                OpenAI-compatible gateway such as <b>OpenRouter</b> via a base-URL override. One
+                provider per configuration. API keys are stored as system parameters, never in code.
+            </p>
+        </div>
+        <div class="oe_span6">
+            <h3 class="oe_slogan" style="text-align:left;">Auditable &amp; transparent</h3>
+            <p class="oe_mt32">
+                Every draft is recorded under <b>CRM → AI Reply Logs</b> with the provider,
+                model, token counts, an indicative cost estimate, the lead, the user and a
+                timestamp — so usage and spend stay visible.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan">Setup &amp; requirements</h2>
+            <p class="oe_mt32" style="font-size:16px;">
+                Depends on Odoo's standard <b>CRM</b> and <b>Mail</b> apps. After installing,
+                open <b>Settings → AI Reply Drafter</b> to pick a provider, paste your API key,
+                set the model and your system prompt.
+            </p>
+            <p>
+                Install the Python SDK for the <b>one</b> provider you use (a clear in-app message
+                tells you if it is missing):
+            </p>
+            <ul style="font-size:15px;">
+                <li><b>Anthropic</b> — <code>pip install anthropic</code></li>
+                <li><b>OpenAI / OpenRouter / compatible</b> — <code>pip install openai</code></li>
+                <li><b>Ollama (local)</b> — uses <code>requests</code>, already shipped with Odoo</li>
             </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12">
+            <h2 class="oe_slogan">Data &amp; privacy</h2>
+            <p class="oe_mt32" style="font-size:16px;">
+                Drafting sends the lead's fields and chatter to the <b>single provider you
+                configure</b> — the one place data leaves your Odoo instance. It is sent only to
+                that provider, and you review every draft before anything is sent. For a fully
+                on-premise setup with no external calls, use <b>Ollama</b>.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <div class="oe_span12" style="text-align:center;">
+            <h3 class="oe_slogan">Odoo 19 Community &amp; Enterprise · LGPL-3</h3>
+            <p>Authored by Emin Ahmed</p>
         </div>
     </div>
 </section>
