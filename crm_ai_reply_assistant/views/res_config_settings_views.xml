@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form_crm_ai" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.crm.ai</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="50"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="AI Reply Drafter" string="AI Reply Drafter"
+                     name="crm_ai_reply_assistant"
+                     groups="sales_team.group_sale_manager">
+                    <block title="LLM Provider"
+                           help="Pick one provider and set its API key. Drafts are sent only to this provider.">
+                        <setting string="Provider"
+                                 help="One provider per configuration.">
+                            <field name="crm_ai_provider"/>
+                            <div class="mt-2">
+                                <label for="crm_ai_model" class="o_light_label"/>
+                                <field name="crm_ai_model"
+                                       placeholder="claude-opus-4-8"/>
+                            </div>
+                        </setting>
+                        <setting string="Anthropic API Key"
+                                 invisible="crm_ai_provider != 'anthropic'"
+                                 help="Stored as a system parameter. Never committed.">
+                            <field name="crm_ai_anthropic_api_key"
+                                   password="True" placeholder="sk-ant-..."/>
+                        </setting>
+                        <setting string="OpenAI API Key"
+                                 invisible="crm_ai_provider != 'openai'"
+                                 help="Stored as a system parameter. Never committed.">
+                            <field name="crm_ai_openai_api_key"
+                                   password="True" placeholder="sk-..."/>
+                            <div class="mt-2">
+                                <label for="crm_ai_openai_base_url" class="o_light_label"/>
+                                <field name="crm_ai_openai_base_url"
+                                       placeholder="https://openrouter.ai/api/v1 (leave empty for OpenAI)"/>
+                            </div>
+                        </setting>
+                        <setting string="Ollama Base URL"
+                                 invisible="crm_ai_provider != 'ollama'"
+                                 help="Your local Ollama server. No API key needed.">
+                            <field name="crm_ai_ollama_base_url"
+                                   placeholder="http://localhost:11434"/>
+                        </setting>
+                    </block>
+                    <block title="Prompt"
+                           help="How the model is steered and how much conversation it sees.">
+                        <setting string="System Prompt"
+                                 help="Lead data and chatter history are appended to this automatically.">
+                            <field name="crm_ai_system_prompt"
+                                   widget="text" class="w-100"/>
+                        </setting>
+                        <setting string="Max Context Messages"
+                                 help="Most recent chatter messages to include, oldest first.">
+                            <field name="crm_ai_max_context_messages"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

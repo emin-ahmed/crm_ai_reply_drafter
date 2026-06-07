@@ -1,4 +1,4 @@
-# Python dependencies for crm_ai_reply_drafter.
+# Python dependencies for crm_ai_reply_assistant.
 #
 # NOTE: Odoo does NOT read this file automatically — it is documentation /
 # convenience only (some deploy pipelines such as odoo.sh or custom Docker

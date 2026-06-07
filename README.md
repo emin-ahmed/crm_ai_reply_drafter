@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="crm_ai_reply_drafter/static/description/icon.png" width="110" alt="AI Reply Drafter icon"/>
+<img src="crm_ai_reply_assistant/static/description/icon.png" width="110" alt="AI Reply Drafter icon"/>
 
 # AI Reply Drafter for Odoo CRM
 
@@ -16,7 +16,7 @@
 ---
 
 <!-- Replace this file with your screen recording (keep the name demo.gif). -->
-![Demo](crm_ai_reply_drafter/static/description/demo.gif)
+![Demo](crm_ai_reply_assistant/static/description/demo.gif)
 
 ## What it does
 
@@ -50,7 +50,7 @@ can edit and send — without leaving the record.
 crm.lead  ──Draft Reply──▶  wizard (crm.ai.reply.wizard)
                                   │  OWL component opens an SSE stream
                                   ▼
-   /crm_ai_reply_drafter/stream  ──▶  crm.ai.reply.service
+   /crm_ai_reply_assistant/stream  ──▶  crm.ai.reply.service
                                           ├─ prompt_builder  (lead fields + chatter)
                                           └─ providers       (Anthropic / OpenAI / Ollama)
                                   │  tokens stream back, draft shown live
@@ -80,7 +80,7 @@ without touching the Odoo layer — and so it can be **mocked in tests**.
 
 ```bash
 # with the module folder on your addons path
-odoo-bin -c odoo.conf -d <db> -i crm_ai_reply_drafter --stop-after-init
+odoo-bin -c odoo.conf -d <db> -i crm_ai_reply_assistant --stop-after-init
 ```
 
 ## Configuration
@@ -110,13 +110,13 @@ that provider, and the salesperson reviews every draft before anything is sent.
 The LLM call is fully mocked, so the suite needs no key and no network:
 
 ```bash
-odoo-bin -c odoo.conf -d <db> -u crm_ai_reply_drafter --test-enable --stop-after-init
+odoo-bin -c odoo.conf -d <db> -u crm_ai_reply_assistant --test-enable --stop-after-init
 ```
 
 ## Project structure
 
 ```
-crm_ai_reply_drafter/
+crm_ai_reply_assistant/
 ├── models/         res.config.settings · crm.lead · crm.ai.reply.log
 ├── services/       providers · prompt_builder · llm_service   (plain, testable Python)
 ├── wizard/         crm.ai.reply.wizard (Send / Edit-in-composer)
