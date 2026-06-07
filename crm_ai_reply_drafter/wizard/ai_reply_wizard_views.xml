@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_ai_reply_wizard_view_form" model="ir.ui.view">
+        <field name="name">crm.ai.reply.wizard.form</field>
+        <field name="model">crm.ai.reply.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Draft Reply">
+                <field name="state" invisible="1"/>
+                <h3 class="mb-3">
+                    AI draft for
+                    <field name="lead_id" readonly="1" nolabel="1"
+                           options="{'no_open': True}" class="d-inline"/>
+                </h3>
+                <!-- The OWL component owns the live stream: it connects to the
+                     streaming controller on mount, renders tokens as they
+                     arrive, turns editable when done, and offers Regenerate.
+                     It writes the draft + status onto this record on completion
+                     so the footer buttons enable. -->
+                <field name="generated_draft" widget="reply_drafter" nolabel="1"
+                       class="o_crm_ai_field w-100"/>
+                <div class="text-muted small mt-2" invisible="state != 'done'">
+                    <field name="input_tokens" class="d-inline"/> in /
+                    <field name="output_tokens" class="d-inline"/> out
+                    <span class="ms-1">· full cost in CRM → AI Reply Logs</span>
+                </div>
+                <footer>
+                    <button string="Send" name="action_send_now"
+                            type="object" class="btn-primary"
+                            invisible="state != 'done'"
+                            confirm="Send this reply to the customer now?"/>
+                    <button string="Edit in composer…" name="action_use_draft"
+                            type="object" class="btn-secondary"
+                            invisible="state != 'done'"/>
+                    <button string="Close" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>
