@@ -16,9 +16,9 @@ streaming generator, so this controller is careful to:
 import json
 import logging
 
-import odoo
 from odoo import api, http
 from odoo.http import request
+from odoo.modules.registry import Registry
 
 from ..services.providers import estimate_cost
 
@@ -98,11 +98,13 @@ class AiReplyController(http.Controller):
                  model, usage, draft, status='success', error=False):
         """Write the result to the wizard and create a log, in a fresh cursor."""
         try:
-            registry = odoo.registry(dbname)
-            with registry.cursor() as cr:
+            with Registry(dbname).cursor() as cr:
                 env = api.Environment(cr, uid, context)
                 lead = env['crm.lead'].browse(lead_id).exists()
-                vals = {'state': status}
+                # The wizard's state field uses streaming/done/error; map the
+                # generation status (success/error) onto it. Writing 'success'
+                # would raise (invalid selection) and skip the log below.
+                vals = {'state': 'done' if status == 'success' else 'error'}
                 if status == 'success':
                     vals.update({
                         'generated_draft': draft,
@@ -115,12 +117,14 @@ class AiReplyController(http.Controller):
                     })
                 else:
                     vals['error_message'] = error
-                wizard = env['crm.ai.reply.wizard'].browse(wizard_id).exists()
-                if wizard:
-                    wizard.write(vals)
+                # Create the audit log first so it is never lost if the wizard
+                # write has an issue.
                 env['crm.ai.reply.service'].log_generation(
                     lead, provider_key, model, usage, draft,
                     status=status, error_message=error)
+                wizard = env['crm.ai.reply.wizard'].browse(wizard_id).exists()
+                if wizard:
+                    wizard.write(vals)
                 cr.commit()
         except Exception:  # noqa: BLE001
             _logger.exception("Failed to persist AI reply result")
