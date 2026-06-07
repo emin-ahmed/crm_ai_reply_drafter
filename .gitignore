@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Odoo
+*.pyc
+
+# Local development notes (not for publication)
+CLAUDE.md
+
+# Secrets — never commit a real key (the .example is tracked)
+.env

@@ -1,0 +1,23 @@
+# Python dependencies for crm_ai_reply_drafter.
+#
+# NOTE: Odoo does NOT read this file automatically — it is documentation /
+# convenience only (some deploy pipelines such as odoo.sh or custom Docker
+# images do pip-install requirements files found in addons). Odoo's own
+# dependency-checking mechanism is `external_dependencies` in the manifest,
+# which is intentionally left empty here: you only ever use ONE provider per
+# configuration, so requiring all of them would block installation. Each
+# provider imports its SDK lazily and raises a clear error if it is missing.
+#
+# Install only the package for the provider you configure in
+# Settings -> AI Reply Drafter:
+#
+#   Anthropic (Claude) ........ anthropic
+#   OpenAI / OpenRouter / any
+#     OpenAI-compatible gateway . openai
+#   Ollama (local) ............ requests  (already required by Odoo itself)
+#
+# Uncomment the line(s) you need, or just `pip install <pkg>` directly.
+
+# anthropic>=0.40
+openai>=1.40
+# requests  # already a hard Odoo dependency; listed for completeness
