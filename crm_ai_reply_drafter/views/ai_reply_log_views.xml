@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_ai_reply_log_view_list" model="ir.ui.view">
+        <field name="name">crm.ai.reply.log.list</field>
+        <field name="model">crm.ai.reply.log</field>
+        <field name="arch" type="xml">
+            <list string="AI Reply Logs" create="false">
+                <field name="create_date"/>
+                <field name="lead_id"/>
+                <field name="user_id"/>
+                <field name="provider"/>
+                <field name="model"/>
+                <field name="input_tokens" sum="Input"/>
+                <field name="output_tokens" sum="Output"/>
+                <field name="total_tokens" sum="Total"/>
+                <field name="cost_estimate" widget="monetary" sum="Cost"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="status" widget="badge"
+                       decoration-success="status == 'success'"
+                       decoration-danger="status == 'error'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="crm_ai_reply_log_view_form" model="ir.ui.view">
+        <field name="name">crm.ai.reply.log.form</field>
+        <field name="model">crm.ai.reply.log</field>
+        <field name="arch" type="xml">
+            <form string="AI Reply Log" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="lead_id"/>
+                            <field name="user_id"/>
+                            <field name="create_date"/>
+                            <field name="status"/>
+                        </group>
+                        <group>
+                            <field name="provider"/>
+                            <field name="model"/>
+                            <field name="input_tokens"/>
+                            <field name="output_tokens"/>
+                            <field name="total_tokens"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="cost_estimate" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group string="Error" invisible="status != 'error'">
+                        <field name="error_message" nolabel="1"/>
+                    </group>
+                    <group string="Generated Draft" invisible="not draft_preview">
+                        <field name="draft_preview" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_ai_reply_log_view_search" model="ir.ui.view">
+        <field name="name">crm.ai.reply.log.search</field>
+        <field name="model">crm.ai.reply.log</field>
+        <field name="arch" type="xml">
+            <search string="AI Reply Logs">
+                <field name="lead_id"/>
+                <field name="user_id"/>
+                <field name="model"/>
+                <filter name="filter_success" string="Success"
+                        domain="[('status', '=', 'success')]"/>
+                <filter name="filter_error" string="Errors"
+                        domain="[('status', '=', 'error')]"/>
+                <group>
+                    <filter name="group_user" string="Salesperson"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter name="group_provider" string="Provider"
+                            context="{'group_by': 'provider'}"/>
+                    <filter name="group_status" string="Status"
+                            context="{'group_by': 'status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_crm_ai_reply_log" model="ir.actions.act_window">
+        <field name="name">AI Reply Logs</field>
+        <field name="res_model">crm.ai.reply.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_group_user': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No AI drafts have been generated yet</p>
+            <p>Each time a salesperson drafts a reply with the AI assistant, a log
+               entry is recorded here with its token usage and cost estimate.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_crm_ai_reply_log"
+              name="AI Reply Logs"
+              parent="crm.crm_menu_config"
+              action="action_crm_ai_reply_log"
+              groups="sales_team.group_sale_manager"
+              sequence="90"/>
+
+</odoo>
