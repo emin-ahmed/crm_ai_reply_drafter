@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_lead_view_form_ai_reply" model="ir.ui.view">
+        <field name="name">crm.lead.form.ai.reply</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Make the compute field available, then add the header button.
+                 Visible only when the lead has at least one chatter message. -->
+            <xpath expr="//header" position="inside">
+                <field name="has_chatter_messages" invisible="1"/>
+                <button name="action_ai_draft_reply" type="object"
+                        string="Draft Reply" icon="fa-magic"
+                        class="btn-secondary"
+                        invisible="not has_chatter_messages"
+                        groups="sales_team.group_sale_salesman"
+                        title="Draft a reply email with AI"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
