@@ -1,0 +1,36 @@
+// Make the field span the full dialog width.
+.o_field_widget.o_crm_ai_field {
+    width: 100%;
+}
+
+.o_crm_ai_reply_assistant {
+    width: 100%;
+
+    .o_crm_ai_reply_text {
+        width: 100%;
+        white-space: pre-wrap;
+        word-break: break-word;
+        min-height: 18rem;
+        max-height: 60vh;
+        overflow-y: auto;
+        background-color: var(--o-white, #fff);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    // The editable draft is a textarea once generation finishes.
+    textarea.o_crm_ai_reply_text {
+        resize: vertical;
+    }
+
+    // Blinking caret shown while tokens stream in.
+    .o_crm_ai_caret {
+        animation: o-crm-ai-blink 1s step-start infinite;
+        color: var(--primary, #714b67);
+        font-weight: bold;
+    }
+
+    @keyframes o-crm-ai-blink {
+        50% { opacity: 0; }
+    }
+}
