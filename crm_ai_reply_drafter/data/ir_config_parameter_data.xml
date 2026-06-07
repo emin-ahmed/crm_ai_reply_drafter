@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--
+        Sensible defaults so the module works out of the box once an API key is
+        set. noupdate="1" so a module upgrade never overwrites the admin's
+        edited values. The API keys are deliberately NOT seeded here.
+    -->
+    <data noupdate="1">
+
+        <record id="param_provider" model="ir.config_parameter">
+            <field name="key">crm_ai_reply_drafter.provider</field>
+            <field name="value">anthropic</field>
+        </record>
+
+        <record id="param_model" model="ir.config_parameter">
+            <field name="key">crm_ai_reply_drafter.model</field>
+            <field name="value">claude-opus-4-8</field>
+        </record>
+
+        <record id="param_ollama_base_url" model="ir.config_parameter">
+            <field name="key">crm_ai_reply_drafter.ollama_base_url</field>
+            <field name="value">http://localhost:11434</field>
+        </record>
+
+        <record id="param_max_context_messages" model="ir.config_parameter">
+            <field name="key">crm_ai_reply_drafter.max_context_messages</field>
+            <field name="value">20</field>
+        </record>
+
+        <record id="param_system_prompt" model="ir.config_parameter">
+            <field name="key">crm_ai_reply_drafter.system_prompt</field>
+            <field name="value">You are an experienced sales representative writing a reply email to a prospect on behalf of the salesperson who owns this lead.
+
+Write a personalized, concise and professional email that moves the deal forward. Ground every sentence in the lead details and conversation history provided — never invent facts, prices, dates or commitments that are not supported by the context. Match the language the prospect has been writing in.
+
+Output only the body of the email, ready to paste into the composer. Do not include a subject line, and do not wrap the text in markdown code fences.</field>
+        </record>
+
+    </data>
+</odoo>
