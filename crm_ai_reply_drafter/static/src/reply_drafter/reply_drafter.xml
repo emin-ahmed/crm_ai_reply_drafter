@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="crm_ai_reply_drafter.ReplyDrafter">
+        <div class="o_crm_ai_reply_drafter">
+            <div class="o_crm_ai_reply_toolbar d-flex align-items-center mb-2">
+                <span t-if="state.status === 'streaming'" class="text-muted">
+                    <i class="fa fa-circle-o-notch fa-spin me-1"/>
+                    Drafting…
+                </span>
+                <span t-if="state.status === 'done'" class="text-success">
+                    <i class="fa fa-check me-1"/>
+                    Draft ready — review and edit below.
+                </span>
+                <span t-if="state.status === 'error'" class="text-danger">
+                    <i class="fa fa-exclamation-triangle me-1"/>
+                    Generation failed.
+                </span>
+                <button class="btn btn-link btn-sm ms-auto"
+                        t-att-disabled="state.status === 'streaming'"
+                        t-on-click="() => this.regenerate()">
+                    <i class="fa fa-refresh me-1"/>
+                    Regenerate
+                </button>
+            </div>
+
+            <div t-if="state.status === 'error'" class="alert alert-danger" role="alert">
+                <t t-esc="state.error"/>
+            </div>
+
+            <!-- Streaming: read-only live view with a blinking caret. -->
+            <div t-elif="state.status === 'streaming'"
+                 class="o_crm_ai_reply_text o_crm_ai_streaming border rounded p-2">
+                <t t-esc="state.text"/><span class="o_crm_ai_caret">▍</span>
+            </div>
+
+            <!-- Done: editable so the salesperson can tweak before sending. -->
+            <textarea t-else=""
+                      class="o_crm_ai_reply_text form-control"
+                      rows="14"
+                      t-att-value="state.text"
+                      t-on-input="onInput"
+                      placeholder="The AI draft appears here — edit as needed, then Send."/>
+        </div>
+    </t>
+
+</templates>
